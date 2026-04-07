@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sonali 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at bottom, #0b0b1a, #000);
+  color: white;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🌌 STARS */
+#stars, #stars2, #stars3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#stars {
+  box-shadow: 100px 200px white, 300px 400px white, 500px 100px white,
+              800px 600px white, 1200px 300px white, 1600px 700px white;
+  animation: twinkle 5s infinite;
+}
+#stars2 {
+  box-shadow: 150px 250px #ccc, 350px 450px #ccc, 700px 200px #ccc,
+              900px 500px #ccc, 1300px 350px #ccc;
+  animation: twinkle 7s infinite;
+}
+#stars3 {
+  box-shadow: 200px 300px #aaa, 600px 150px #aaa,
+              1000px 400px #aaa, 1400px 600px #aaa;
+  animation: twinkle 9s infinite;
+}
+
+@keyframes twinkle {
+  0%,100% {opacity:0.3;}
+  50% {opacity:1;}
+}
+
+/* 🌠 Shooting Star */
+.shooting-star {
+  position: fixed;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(-45deg, white, transparent);
+  transform: rotate(45deg);
+  animation: shoot 6s linear infinite;
+}
+
+@keyframes shoot {
+  0% {top:-10%; left:80%; opacity:1;}
+  100% {top:100%; left:0%; opacity:0;}
+}
+
+/* LETTER */
+#letter {
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+#text {
+  font-family:'Playfair Display', serif;
+  font-size:2rem;
+  color:gold;
+  max-width:700px;
+}
+
+/* BUTTON */
+.btn {
+  margin-top:30px;
+  padding:12px 30px;
+  border:1px solid gold;
+  background:transparent;
+  color:gold;
+  border-radius:30px;
+  cursor:pointer;
+}
+.btn:hover {
+  background:gold;
+  color:black;
+}
+
+/* MAIN */
+#main {
+  display:none;
+  height:100vh;
+  text-align:center;
+  padding-top:100px;
+}
+
+/* TITLE */
+.title {
+  font-size:3rem;
+  font-family:'Playfair Display', serif;
+  color:gold;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from {text-shadow:0 0 10px gold;}
+  to {text-shadow:0 0 30px gold;}
+}
+
+/* MESSAGE */
+.message {
+  margin-top:30px;
+  font-size:1.2rem;
+  opacity:0.8;
+}
+
+/* BUTTON FINAL */
+.final-btn {
+  margin-top:40px;
+  padding:12px 25px;
+  border:none;
+  background:linear-gradient(45deg,gold,pink);
+  border-radius:30px;
+  cursor:pointer;
+  color:black;
+}
+
+/* FADE */
+.fade {
+  animation: fade 2s ease forwards;
+}
+@keyframes fade {
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌌 BACKGROUND -->
+<div id="stars"></div>
+<div id="stars2"></div>
+<div id="stars3"></div>
+<div class="shooting-star"></div>
+
+<!-- 💌 LETTER -->
+<section id="letter">
+  <div id="text"></div>
+  <button class="btn" onclick="openGift()">Open it 🎁</button>
+</section>
+
+<!-- 🎉 MAIN -->
+<section id="main">
+  <h1 class="title">Happy Birthday Sonali 🎂</h1>
+
+  <p class="message">
+    Some people are special.<br>
+    But you… you are unforgettable.<br><br>
+    Your smile has a magic,<br>
+    and your presence makes everything better.<br><br>
+    I’m really lucky to have you in my life 💖
+  </p>
+
+  <button class="final-btn" onclick="celebrate()">One Last Surprise 💫</button>
+</section>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<script>
+
+/* 💌 TYPEWRITER */
+const message = "Hey Sonali...\n\nThis is not just a website...\n\nIt’s something I made just for you 💖";
+let i=0;
+
+function typeWriter(){
+  if(i<message.length){
+    document.getElementById("text").innerHTML +=
+      message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
+}
+typeWriter();
+
+/* 🎁 OPEN */
+function openGift(){
+  document.getElementById("letter").style.display="none";
+  document.getElementById("main").style.display="block";
+  document.getElementById("main").classList.add("fade");
+
+  let music=document.getElementById("music");
+  music.volume=0;
+  music.play();
+
+  let fade=setInterval(()=>{
+    if(music.volume<0.6) music.volume+=0.02;
+    else clearInterval(fade);
+  },200);
+}
+
+/* 🎆 FIREWORK */
+function celebrate(){
+  for(let i=0;i<6;i++){
+    setTimeout(()=>{
+      confetti({
+        particleCount:200,
+        spread:120,
+        origin:{y:0.5}
+      });
+    },i*400);
+  }
+}
+
+</script>
+
+</body>
+</html>
